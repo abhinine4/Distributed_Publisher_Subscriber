@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    command: python -u app.py
+    ports:
+      - "5003:5000"
+    volumes:
+      - .:/app
+    links:
+      - db
+      - db2
+  app2:
+    build: .
+    command: python -u app.py
+    ports:
+      - "5001:5000"
+    volumes:
+      - .:/app
+    links:
+      - db
+      - db2
+
+  app3:
+    build: .
+    command: python -u app.py
+    ports:
+      - "5002:5000"
+    volumes:
+      - .:/app
+    links:
+      - db
+      - db2
+
+  db:
+    image: mongo:latest
+    hostname: test_mongodb
+    environment:
+      - MONGO_INITDB_DATABASE=event1_db
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    volumes:
+      - ./docker-entrypoint-initdb.d/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+#      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+    ports:
+      - 27017:27017
+
+  db2:
+    image: mongo:latest
+    hostname: test_mongodb2
+    environment:
+      - MONGO_INITDB_DATABASE=event2_db
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    volumes:
+      - ./docker-entrypoint-initdb.d/init-db2.js:/docker-entrypoint-initdb.d/init-db2.js:ro
+#      - ./init-db2.js:/docker-entrypoint-initdb.d/init-db2.js:ro
+    command: mongod --port 27018
+#    ports:
+#      - 27018:27018
