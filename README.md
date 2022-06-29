@@ -6,6 +6,6 @@ Distributed pub sub system built on Docker container
 
 Stack used : Python, Docker-Compose, FLask, HTML/CSS
 
-![Architecture diagram]()
+![Architecture diagram](https://github.com/abhinine4/Distributed_publisher_Subscriber/blob/master/Screen%20Shot%202022-06-29%20at%209.30.28%20AM.png)
 
 
